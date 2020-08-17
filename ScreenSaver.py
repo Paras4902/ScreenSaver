@@ -8,18 +8,20 @@ class Balls:
         self.canvas = canvas
         self.screenwidth = canvas.winfo_screenwidth()
         self.screenheight = canvas.winfo_screenheight()
-        self.randvalues()
-        self.createball()
-
-    def randvalues(self):
         self.radius = randint(50, 100)
         self.x_coord = randint(self.radius, self.screenwidth - self.radius)
         self.y_coord = randint(self.radius, self.screenheight - self.radius)
         self.x_speed = randint(5, 15)
         self.y_speed = randint(5, 15)
         self.color = self.randcolors()
+        self.x1 = self.x_coord - self.radius
+        self.y1 = self.y_coord - self.radius
+        self.x2 = self.x_coord + self.radius
+        self.y2 = self.y_coord + self.radius
+        self.ball = self.canvas.create_oval(self.x1, self.y1, self.x2, self.y2, fill=self.color, outline=self.color)
 
-    def randcolors(self):
+    @staticmethod
+    def randcolors():
         global color
         randval = randint(0, 9)
         if randval == 0:
@@ -42,13 +44,6 @@ class Balls:
             color = "grey"
 
         return color
-
-    def createball(self):
-        x1 = self.x_coord - self.radius
-        y1 = self.y_coord - self.radius
-        x2 = self.x_coord + self.radius
-        y2 = self.y_coord + self.radius
-        self.ball = self.canvas.create_oval(x1, y1, x2, y2, fill=self.color, outline=self.color)
 
     def moveball(self):
         self.findboundry()
